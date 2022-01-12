@@ -29,7 +29,6 @@ namespace Marche
         private string animation;
         private int _vitessePerso;
 
-        public static TiledMapTileLayer _collisionsLayer; // collisions
         private OrthographicCamera _camera;
 
         public const int LARGEUR_MAP = 32;
@@ -54,6 +53,7 @@ namespace Marche
             var viewportadapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
             _graphics.ApplyChanges();
+            mouvement = new Mouvement();
             base.Initialize();
         }
 
@@ -66,7 +66,6 @@ namespace Marche
             _mc = new AnimatedSprite(spriteSheet);
             _tiledMap = Content.Load<TiledMap>("marche");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-            _collisionsLayer = _tiledMap.GetLayer<TiledMapTileLayer>("Obstacle");
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,7 +78,7 @@ namespace Marche
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
 
-            Mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, HAUTEUR_MAP, LARGEUR_MAP, _mc);
+            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, HAUTEUR_MAP, LARGEUR_MAP, _mc, "Obstacle");
             _camera.LookAt(_mcPosition);
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
