@@ -9,8 +9,8 @@ namespace Marche
         {
             using (var game = new Game1())
                 game.Run();
-          //  using (var game = new paysage())
-          //      game.Run();
+            using (var game = new paysage())
+                game.Run();
         }
     }
 }
