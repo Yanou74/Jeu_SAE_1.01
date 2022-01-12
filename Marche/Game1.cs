@@ -47,11 +47,11 @@ namespace Marche
         {
             // TODO: Add your initialization logic here
             // _graphics.IsFullScreen = true;
-            _mcPosition = new Vector2(400, 400);
+            _mcPosition = new Vector2(600, 600);
             animation = "idle";
             _vitessePerso = 100;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            var viewportadapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 600);
+            var viewportadapter = new BoxingViewportAdapter(Window, GraphicsDevice, 500, 400);
             _camera = new OrthographicCamera(viewportadapter);
             _graphics.ApplyChanges();
             base.Initialize();
