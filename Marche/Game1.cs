@@ -19,6 +19,7 @@ namespace Marche
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        public Mouvement mouvement;
         private Vector2 _mcPosition;
         private AnimatedSprite _mc;
 
@@ -28,7 +29,7 @@ namespace Marche
         private string animation;
         private int _vitessePerso;
 
-        private TiledMapTileLayer _collisionsLayer; // collisions
+        public static TiledMapTileLayer _collisionsLayer; // collisions
         private OrthographicCamera _camera;
 
         public const int LARGEUR_MAP = 32;
@@ -77,47 +78,8 @@ namespace Marche
             _tiledMapRenderer.Update(gameTime);
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
-            KeyboardState keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth - 0.5);
-                ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight +1);
-                animation = "walkWest";
-                if (!IsCollision(tx, ty) && _mcPosition.X > 0 + _mc.TextureRegion.Width / 2)
-                    _mcPosition.X -= walkSpeed;
-               
-
-            }
-            else if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth + 0.5);
-                ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
-                animation = "walkEast";
-                if (!IsCollision(tx, ty) && _mcPosition.X < _tiledMap.Width * LARGEUR_MAP + _mc.TextureRegion.Width / 2)
-                    _mcPosition.X += walkSpeed;
-            }
-            else if (keyboardState.IsKeyDown(Keys.Up))
-            {
-                ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
-                ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 0.5);
-                animation = "walkNorth";
-                if (!IsCollision(tx, ty) && _mcPosition.Y > 0 + _mc.TextureRegion.Height / 2)
-                    _mcPosition.Y -= walkSpeed;
-            }
-            else if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
-                ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1.5);
-                animation = "walkSouth";
-                if (!IsCollision(tx, ty) && _mcPosition.Y < _tiledMap.Height * HAUTEUR_MAP + _mc.TextureRegion.Height / 2)
-                    _mcPosition.Y += walkSpeed;
-
-            }
-            else
-            {
-                animation = "idle";
-            }
+            Mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, HAUTEUR_MAP, LARGEUR_MAP, _mc);
             _camera.LookAt(_mcPosition);
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
@@ -138,14 +100,5 @@ namespace Marche
             base.Draw(gameTime);
         }
 
-        private bool IsCollision(ushort x, ushort y)
-        {
-            TiledMapTile? tile;
-            if (_collisionsLayer.TryGetTile(x, y, out tile) == false)
-                return false;
-            if (!tile.Value.IsBlank)
-                return true;
-            return false;
-        }
     }
 }
