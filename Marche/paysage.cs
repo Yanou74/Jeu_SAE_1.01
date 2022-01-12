@@ -11,16 +11,23 @@ using MonoGame.Extended.Serialization;
 
 namespace Marche
 {
-    class paysage : Game
+    class Paysage : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Vector2 _mcPosition;
+        private AnimatedSprite _mc;
+        private string animation;
+        private int _vitessePerso;
+        private Mouvement mouvement;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
+
         private OrthographicCamera _camera;
         private Vector2 _cameraPosition;
 
-        public paysage()
+
+        public Paysage()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -30,14 +37,14 @@ namespace Marche
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _graphics.PreferredBackBufferWidth = 800;
-            _graphics.PreferredBackBufferHeight = 600;
-            _graphics.ApplyChanges();
-            _tiledMap = Content.Load<TiledMap>("paysage/map1");
-            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            _mcPosition = new Vector2(512, 2880);
+            animation = "idle";
+            _vitessePerso = 100;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
+            _graphics.ApplyChanges();
+            mouvement = new Mouvement();
             base.Initialize();
         }
 
@@ -46,6 +53,10 @@ namespace Marche
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
+            _tiledMap = Content.Load<TiledMap>("paysage/map1");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            _mc = new AnimatedSprite(spriteSheet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,8 +66,13 @@ namespace Marche
 
             // TODO: Add your update logic here
             _tiledMapRenderer.Update(gameTime);
-            MoveCamera(gameTime);
-            _camera.LookAt(_cameraPosition);
+            float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float walkSpeed = deltaSeconds * _vitessePerso;
+
+            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "arbre");
+            _camera.LookAt(_mcPosition);
+            _mc.Play(animation);
+            _mc.Update(deltaSeconds);
             base.Update(gameTime);
         }
 
@@ -66,6 +82,9 @@ namespace Marche
 
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -110,6 +129,5 @@ namespace Marche
             var movementDirection = GetMovementDirection();
             _cameraPosition += speed * movementDirection * seconds;
         }
-
     }
 }
