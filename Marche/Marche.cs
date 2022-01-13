@@ -17,7 +17,7 @@ namespace Marche
 {
     class Marche : GameScreen
     {
-
+        private PositionSwitchScenecs _pss;
         private GameManager _gameManager;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -50,6 +50,7 @@ namespace Marche
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
+
             _mcPosition = new Vector2(600, 600);
             animation = "idle";
             _vitessePerso = 100;
@@ -111,7 +112,7 @@ namespace Marche
         private void CheckTPPoints()
         {
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
-            ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight - 1);
+            ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
             
             if(tpPoints.GetTile(tx, ty).GlobalIdentifier == 7028)
                     _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));

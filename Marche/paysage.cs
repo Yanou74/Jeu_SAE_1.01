@@ -10,7 +10,7 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
-
+using System;
 namespace Marche
 {
     class Paysage : GameScreen
@@ -26,6 +26,7 @@ namespace Marche
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
+        private TiledMapTileLayer _tpPoints;
         private OrthographicCamera _camera;
         private Vector2 _cameraPosition;
         private MouseState mouseState;
@@ -40,7 +41,7 @@ namespace Marche
             // TODO: Add your initialization logic here
             _mcPosition = new Vector2(512, 2880);
             animation = "idle";
-            _vitessePerso = 100;
+            _vitessePerso = 200;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
@@ -55,6 +56,7 @@ namespace Marche
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
             _tiledMap = Content.Load<TiledMap>("paysage/map1");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+            _tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
             _mc = new AnimatedSprite(spriteSheet);
 
         }
@@ -71,13 +73,14 @@ namespace Marche
             _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("arbre_tronc");
             mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "arbre_tronc","montagne", "montagne_etage_2", "cascade", "maison_joueur", "dehors_maison_joueur", "parcelle");
             _camera.LookAt(_mcPosition);
+            CheckTPPoints();
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
 
             mouseState = Mouse.GetState();
             if (mouseState.LeftButton == ButtonState.Pressed)
                 _gameManager._screenManager.LoadScreen(new Marche(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
-
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -122,11 +125,17 @@ namespace Marche
             {
                 movementDirection.Normalize();
             }
+            return movementDirection;
 
             
-
-
-            return movementDirection;
+        }
+        private void CheckTPPoints()
+        {
+            ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
+            ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
+            Console.WriteLine(_tpPoints.GetTile(tx, ty).GlobalIdentifier);
+            if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3401)
+                _gameManager._screenManager.LoadScreen(new Marche(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
         }
 
     }
