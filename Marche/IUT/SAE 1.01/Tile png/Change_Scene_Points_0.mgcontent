@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/bella/Desktop/S1.01/Jeu_ferme/Marche/Content/../../../../IUT/SAE 1.01/Tile png/Change_Scene_Points.png</SourceFile>
+  <SourceTime>2022-01-13T22:55:47.1557128+01:00</SourceTime>
+  <DestFile>C:/Users/bella/Desktop/S1.01/Jeu_ferme/Marche/Content/bin/DesktopGL/Content/../../../../IUT/SAE 1.01/Tile png/Change_Scene_Points_0.xnb</DestFile>
+  <DestTime>2022-01-13T22:58:05.1230129+01:00</DestTime>
+  <Importer>TextureImporter</Importer>
+  <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
+  <Processor>TextureProcessor</Processor>
+  <ProcessorTime>2020-08-10T18:17:54+02:00</ProcessorTime>
+  <Parameters>
+    <Key>ColorKeyColor</Key>
+    <Value>0,0,0,0</Value>
+  </Parameters>
+  <Parameters>
+    <Key>ColorKeyEnabled</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

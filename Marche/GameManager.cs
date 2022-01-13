@@ -15,6 +15,7 @@ namespace Marche
         private GraphicsDeviceManager _graphics;
         public SpriteBatch SpriteBatch { get; set; }
         public readonly ScreenManager _screenManager;
+
         public GameManager()
         {
             _graphics = new GraphicsDeviceManager(this);
