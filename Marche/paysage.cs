@@ -22,7 +22,7 @@ namespace Marche
         private Mouvement mouvement;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-
+        private TiledMapTileLayer _mapLayer;
         private OrthographicCamera _camera;
         private Vector2 _cameraPosition;
 
@@ -45,6 +45,7 @@ namespace Marche
             _camera = new OrthographicCamera(viewportadapter);
             _graphics.ApplyChanges();
             mouvement = new Mouvement();
+
             base.Initialize();
         }
 
@@ -57,6 +58,7 @@ namespace Marche
             _tiledMap = Content.Load<TiledMap>("paysage/map1");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _mc = new AnimatedSprite(spriteSheet);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,8 +70,8 @@ namespace Marche
             _tiledMapRenderer.Update(gameTime);
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
-
-            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "arbre");
+            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("arbre_tronc");
+            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "arbre_tronc","montagne", "montagne_etage_2", "cascade", "maison_joueur", "dehors_maison_joueur", "parcelle");
             _camera.LookAt(_mcPosition);
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
@@ -83,8 +85,9 @@ namespace Marche
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
+            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1, (float)1));
             _spriteBatch.End();
+            _tiledMapRenderer.Draw(7, _camera.GetViewMatrix());
             base.Draw(gameTime);
         }
 
