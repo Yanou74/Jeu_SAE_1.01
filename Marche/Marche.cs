@@ -8,18 +8,23 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
+using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
+
 using System;
 
 namespace Marche
 {
-    public class Game1 : Game
+     class Marche : GameScreen
     {
 
-       
+        private GameManager _gameManager;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Mouvement mouvement;
+        private MouseState mouseState;
+
+        private Mouvement mouvement;
         private Vector2 _mcPosition;
         private AnimatedSprite _mc;
 
@@ -34,15 +39,13 @@ namespace Marche
         public const int LARGEUR_MAP = 32;
         public const int HAUTEUR_MAP = 32;
 
-        public Game1()
+        public Marche(GameManager game) : base(game)
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            _gameManager = game;
 
         }
 
-        protected override void Initialize()
+        public override void Initialize()
         {
             // TODO: Add your initialization logic here
             // _graphics.IsFullScreen = true;
@@ -50,14 +53,14 @@ namespace Marche
             animation = "idle";
             _vitessePerso = 100;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            var viewportadapter = new BoxingViewportAdapter(Window, GraphicsDevice, 500, 400);
+            var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 500, 400);
             _camera = new OrthographicCamera(viewportadapter);
-            _graphics.ApplyChanges();
+            
             mouvement = new Mouvement();
-            base.Initialize();
+            
         }
 
-        protected override void LoadContent()
+        public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -68,10 +71,10 @@ namespace Marche
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         }
 
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+                _gameManager.Exit();
 
             // TODO: Add your update logic here
             _tiledMapRenderer.Update(gameTime);
@@ -82,10 +85,16 @@ namespace Marche
             _camera.LookAt(_mcPosition);
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
-            base.Update(gameTime);
+
+            mouseState = Mouse.GetState();
+            if (mouseState.LeftButton == ButtonState.Pressed)
+                _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
+
+
+
         }
 
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
@@ -96,8 +105,6 @@ namespace Marche
             _spriteBatch.End();
             _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
 
-
-            base.Draw(gameTime);
         }
 
     }
