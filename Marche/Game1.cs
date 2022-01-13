@@ -94,8 +94,8 @@ namespace Marche
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
             _spriteBatch.End();
+            _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
 
-            
 
             base.Draw(gameTime);
         }
