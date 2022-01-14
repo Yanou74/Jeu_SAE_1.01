@@ -10,6 +10,7 @@ using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
+using System;
 
 namespace Marche
 {
@@ -28,11 +29,10 @@ namespace Marche
 
         private string animation;
         private int _vitessePerso;
-
         private OrthographicCamera _camera;
 
-        public const int LARGEUR_MAP = 12;
-        public const int HAUTEUR_MAP = 13;
+        public const int LARGEUR_MAP = 25;
+        public const int HAUTEUR_MAP = 25;
 
         private TiledMapTileLayer tpPoints;
 
@@ -64,7 +64,7 @@ namespace Marche
             // TODO: use this.Content to load your game content here
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
             _mc = new AnimatedSprite(spriteSheet);
-            _tiledMap = Content.Load<TiledMap>("house");
+            _tiledMap = Content.Load<TiledMap>("HousePlayer/house");
             tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         }
@@ -99,7 +99,8 @@ namespace Marche
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
             _spriteBatch.End();
-            _tiledMapRenderer.Draw(12, _camera.GetViewMatrix());
+            _tiledMapRenderer.Draw(6, _camera.GetViewMatrix());
+
 
         }
 
@@ -107,10 +108,9 @@ namespace Marche
         {
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
             ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
-
-            if (tpPoints.GetTile(tx, ty).GlobalIdentifier == 7028)
+            if (tpPoints.GetTile(tx, ty).GlobalIdentifier == 1286)
             {
-                _gameManager._goToPos = _pss.SwitchScene(7);
+                _gameManager._goToPos = _pss.SwitchScene(6);
                 _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
 
             }

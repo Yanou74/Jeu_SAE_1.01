@@ -19,7 +19,10 @@ namespace Marche
                     _PosToSpawn = new Vector2(60, 380);
                         break;
                 case 5:
-                    _PosToSpawn = new Vector2(192, 320);
+                    _PosToSpawn = new Vector2(210, 300);
+                    break;
+                case 6:
+                    _PosToSpawn = new Vector2(542, 2679);
                     break;
                 default:
                     _PosToSpawn = new Vector2(400, 2180);
