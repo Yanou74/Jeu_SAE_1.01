@@ -74,9 +74,6 @@ namespace Marche
 
         public override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                _gameManager.Exit();
-
             // TODO: Add your update logic here
             _tiledMapRenderer.Update(gameTime);
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -13,6 +13,8 @@ namespace Marche
     public class GameManager : Game
     {
         private GraphicsDeviceManager _graphics;
+        private Pause _pause;
+        private bool _singleClick;
         public SpriteBatch SpriteBatch { get; set; }
         public readonly ScreenManager _screenManager;
 
@@ -35,6 +37,8 @@ namespace Marche
             // TODO: Add your initialization logic here
             // Position par Défaut
             _goToPos = new Vector2(544, 2944);
+            _singleClick = true;
+             _pause = new Pause();
             base.Initialize();
         }
 
@@ -43,12 +47,26 @@ namespace Marche
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+           
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && _singleClick == false)
+            {
+                _pause.IsPaused();
+                _singleClick = true;
+            }
+            else
+            {
+                _singleClick = false;
+            }
+                
+
 
             // TODO: Add your update logic here
             base.Update(gameTime);
