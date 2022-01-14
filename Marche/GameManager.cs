@@ -16,6 +16,9 @@ namespace Marche
         public SpriteBatch SpriteBatch { get; set; }
         public readonly ScreenManager _screenManager;
 
+
+        // Position a mettre
+        public Vector2 _goToPos;
         public GameManager()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -28,9 +31,10 @@ namespace Marche
         protected override void Initialize()
         {
             
-            LoadMarche();
+            LoadPaysage();
             // TODO: Add your initialization logic here
-
+            // Position par Défaut
+            _goToPos = new Vector2(544, 2944);
             base.Initialize();
         }
 
@@ -47,7 +51,6 @@ namespace Marche
                 Exit();
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 

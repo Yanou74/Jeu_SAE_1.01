@@ -17,12 +17,9 @@ namespace Marche
 {
     class Marche : GameScreen
     {
-        private PositionSwitchScenecs _pss;
+        public PositionSwitchScenecs _pss;
         private GameManager _gameManager;
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private MouseState mouseState;
 
         private Mouvement mouvement;
         private Vector2 _mcPosition;
@@ -51,14 +48,14 @@ namespace Marche
         {
             // TODO: Add your initialization logic here
 
-            _mcPosition = new Vector2(600, 600);
+            _mcPosition = _gameManager._goToPos;
             animation = "idle";
             _vitessePerso = 100;
-
+            
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 500, 400);
             _camera = new OrthographicCamera(viewportadapter);
-
+            _pss = new PositionSwitchScenecs();
             mouvement = new Mouvement();
 
         }
@@ -109,13 +106,18 @@ namespace Marche
 
         }
 
-        private void CheckTPPoints()
+        public void CheckTPPoints()
         {
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
             ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
             
             if(tpPoints.GetTile(tx, ty).GlobalIdentifier == 7028)
-                    _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
+            {
+                _gameManager._goToPos = _pss.SwitchScene(1);
+                _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
+                
+            }
+                    
         }
 
     }
