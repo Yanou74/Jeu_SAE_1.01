@@ -13,7 +13,7 @@ namespace Marche
             switch (idTP)
             {
                 case 1:
-                    _PosToSpawn = new Vector2(2912, 2912);
+                    _PosToSpawn = new Vector2(2850, 2912);
                     break;
                 case 4:
                     _PosToSpawn = new Vector2(60, 380);

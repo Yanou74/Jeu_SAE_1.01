@@ -17,7 +17,6 @@ namespace Marche
     {
         private PositionSwitchScenecs _pss;
         private GameManager _gameManager;
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _mcPosition;
         private AnimatedSprite _mc;
@@ -26,10 +25,8 @@ namespace Marche
         private Mouvement mouvement;
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer _mapLayer;
         private TiledMapTileLayer _tpPoints;
         private OrthographicCamera _camera;
-        private Vector2 _cameraPosition;
         private MouseState mouseState;
 
         public Paysage(GameManager game) : base(game)
@@ -42,7 +39,7 @@ namespace Marche
             // TODO: Add your initialization logic here
             _mcPosition = _gameManager._goToPos;
             animation = "idle";
-            _vitessePerso = 200;
+            _vitessePerso = 500;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
@@ -72,8 +69,7 @@ namespace Marche
             _tiledMapRenderer.Update(gameTime);
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
-            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("arbre_tronc");
-            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "arbre_tronc","montagne", "montagne_etage_2", "cascade", "maison_joueur", "dehors_maison_joueur", "parcelle");
+            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "bord_eau", "bord_montagnes", "parcelle","dehors_maison_joueur", "maison_joueur_derriere");
             _camera.LookAt(_mcPosition);
             CheckTPPoints();
             _mc.Play(animation);
