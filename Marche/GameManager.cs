@@ -60,14 +60,9 @@ namespace Marche
                 Exit();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && _singleClick == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 _pause.IsPaused();
-                _singleClick = true;
-            }
-            else
-            {
-                _singleClick = false;
             }
                 
 

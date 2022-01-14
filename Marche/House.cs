@@ -31,7 +31,7 @@ namespace Marche
         private int _vitessePerso;
         private OrthographicCamera _camera;
 
-        public const int LARGEUR_MAP = 25;
+        public const int LARGEUR_MAP = 30;
         public const int HAUTEUR_MAP = 25;
 
         private TiledMapTileLayer tpPoints;
