@@ -82,7 +82,8 @@ namespace Marche
             mouseState = Mouse.GetState();
             if (mouseState.LeftButton == ButtonState.Pressed)
                 _gameManager._screenManager.LoadScreen(new Marche(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
-            
+            Console.WriteLine(_mcPosition);
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -134,7 +135,7 @@ namespace Marche
         {
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
             ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
-            Console.WriteLine(_tpPoints.GetTile(tx, ty).GlobalIdentifier);
+
             if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3401)
             {
                 _gameManager._goToPos = _pss.SwitchScene(4);
