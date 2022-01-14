@@ -15,6 +15,7 @@ namespace Marche
 {
     class Paysage : GameScreen
     {
+        private PositionSwitchScenecs _pss;
         private GameManager _gameManager;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -39,12 +40,13 @@ namespace Marche
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _mcPosition = new Vector2(512, 2880);
+            _mcPosition = _gameManager._goToPos;
             animation = "idle";
             _vitessePerso = 200;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
+            _pss = new PositionSwitchScenecs();
             mouvement = new Mouvement();
         }
 
@@ -92,7 +94,7 @@ namespace Marche
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1, (float)1));
             _spriteBatch.End();
-            _tiledMapRenderer.Draw(7, _camera.GetViewMatrix());
+            _tiledMapRenderer.Draw(8, _camera.GetViewMatrix());
         }
 
         private Vector2 GetMovementDirection()
@@ -126,7 +128,6 @@ namespace Marche
                 movementDirection.Normalize();
             }
             return movementDirection;
-
             
         }
         private void CheckTPPoints()
@@ -135,7 +136,12 @@ namespace Marche
             ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
             Console.WriteLine(_tpPoints.GetTile(tx, ty).GlobalIdentifier);
             if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3401)
+            {
+                _gameManager._goToPos = _pss.SwitchScene(4);
                 _gameManager._screenManager.LoadScreen(new Marche(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
+                
+            }
+                
         }
 
     }

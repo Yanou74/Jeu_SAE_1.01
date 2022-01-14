@@ -4,25 +4,26 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Marche
 {
-    class PositionSwitchScenecs
+    public class PositionSwitchScenecs
     {
-        
-
+        private Vector2 _PosToSpawn;
         public Vector2 SwitchScene(int idTP)
         {
-            Vector2 _SpawnPosition;
             // Marché
             switch (idTP)
             {
+                case 1:
+                    _PosToSpawn = new Vector2(2912, 2912);
+                    break;
                 case 4:
-                    _SpawnPosition = new Vector2(60, 380);
+                    _PosToSpawn = new Vector2(60, 380);
                         break;
                 default:
-                    _SpawnPosition = new Vector2(400, 400);
-                    break;
-                    
+                    _PosToSpawn = new Vector2(400, 2180);
+                    break;              
             }
-            return _SpawnPosition;
+
+            return _PosToSpawn;
         }
     }
 }
