@@ -39,7 +39,7 @@ namespace Marche
             // TODO: Add your initialization logic here
             _mcPosition = _gameManager._goToPos;
             animation = "idle";
-            _vitessePerso = 500;
+            _vitessePerso = 100;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
@@ -69,7 +69,7 @@ namespace Marche
             _tiledMapRenderer.Update(gameTime);
             float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
-            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "bord_eau", "bord_montagnes", "parcelle","dehors_maison_joueur", "maison_joueur_derriere");
+            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, 600, 800, _mc, "bord_eau", "bord_montagnes", "parcelle","dehors_maison_joueur", "maison_joueur_derriere", "arbre_tronc");
             _camera.LookAt(_mcPosition);
             CheckTPPoints();
             _mc.Play(animation);
@@ -89,7 +89,8 @@ namespace Marche
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1, (float)1));
             _spriteBatch.End();
-            _tiledMapRenderer.Draw(8, _camera.GetViewMatrix());
+            _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
+            _tiledMapRenderer.Draw(15, _camera.GetViewMatrix());
         }
 
         private Vector2 GetMovementDirection()
