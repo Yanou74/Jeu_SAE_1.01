@@ -39,7 +39,7 @@ namespace Marche
             // TODO: Add your initialization logic here
             _mcPosition = _gameManager._goToPos;
             animation = "idle";
-            _vitessePerso = 100;
+            _vitessePerso = 300;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 800, 600);
             _camera = new OrthographicCamera(viewportadapter);
@@ -85,45 +85,13 @@ namespace Marche
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1, (float)1));
+            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
             _tiledMapRenderer.Draw(15, _camera.GetViewMatrix());
         }
 
-        private Vector2 GetMovementDirection()
-        {
-            var movementDirection = Vector2.Zero;
-            var state = Keyboard.GetState();
-            if (movementDirection.Y >= 100)
-            {
-                movementDirection -= Vector2.Zero;
-            }
-            if (state.IsKeyDown(Keys.Down))
-            {
-                movementDirection += Vector2.UnitY;
-            }
-            if (state.IsKeyDown(Keys.Up))
-            {
-                movementDirection -= Vector2.UnitY;
-            }
-            if (state.IsKeyDown(Keys.Left))
-            {
-                movementDirection -= Vector2.UnitX;
-            }
-            if (state.IsKeyDown(Keys.Right))
-            {
-                movementDirection += Vector2.UnitX;
-            }
 
-            // Can't normalize the zero vector so test for it before normalizing
-            if (movementDirection != Vector2.Zero)
-            {
-                movementDirection.Normalize();
-            }
-            return movementDirection;
-            
-        }
         private void CheckTPPoints()
         {
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);

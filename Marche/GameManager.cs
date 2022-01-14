@@ -36,10 +36,14 @@ namespace Marche
             LoadPaysage();
             // TODO: Add your initialization logic here
             // Position par Défaut
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.ApplyChanges();
             _goToPos = new Vector2(544, 2944);
             _singleClick = true;
              _pause = new Pause();
             base.Initialize();
+
         }
 
         protected override void LoadContent()
@@ -91,6 +95,11 @@ namespace Marche
         private void LoadHousePlayer()
         {
             _screenManager.LoadScreen(new House(this));
+        }
+
+        private void SpeedCheat()
+        {
+
         }
     }
 }
