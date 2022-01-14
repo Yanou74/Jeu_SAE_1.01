@@ -70,6 +70,9 @@ namespace Marche
         {
             _screenManager.LoadScreen(new Paysage(this));
         }
-
+        private void LoadHousePlayer()
+        {
+            _screenManager.LoadScreen(new House(this));
+        }
     }
 }
