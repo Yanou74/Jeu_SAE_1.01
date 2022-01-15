@@ -5,7 +5,6 @@ using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using System;
 using System.Collections.Generic;
-using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 
 namespace Marche
@@ -20,8 +19,9 @@ namespace Marche
         private List<Componant> _gameComponant;
 
         //Buttons 
-        public Button _playButton;
+        private Button _playButton;
         private Button _quitButton;
+        private Button _optionButton;
 
         public MainMenu(GameManager game) : base(game)
         {
@@ -41,17 +41,26 @@ namespace Marche
             _background = Content.Load<Texture2D>("MainMenuElements/background");
             _titleGame = Content.Load<Texture2D>("MainMenuElements/titleGame");
 
+            // Bouton Play
             _playButton = new Button(Content.Load<Texture2D>("UI/Button"), Content.Load<SpriteFont>("Fonts/defaultFont"))
             {
-                Position = new Vector2(390, 328),
-                Text = "Play",
+                Position = new Vector2(390, 330),
+                Text = "Jouer",
             };
             _playButton.Click += PlayButton_Click;
 
+            // Bouton Options
+            _optionButton = new Button(Content.Load<Texture2D>("UI/Button"), Content.Load<SpriteFont>("Fonts/defaultFont"))
+            {
+                Position = new Vector2(390, 450),
+                Text = "Options",
+            };
+            _optionButton.Click += OptionButton_Click;
 
+            // Bouton QUitter
             _quitButton = new Button(Content.Load<Texture2D>("UI/Button"), Content.Load<SpriteFont>("Fonts/defaultFont"))
             {
-                Position = new Vector2(390, 480),
+                Position = new Vector2(390, 570),
                 Text = "Quitter",
             };
             _quitButton.Click += QuitButton_Click;
@@ -60,6 +69,7 @@ namespace Marche
             {
                 _playButton,
                 _quitButton,
+                _optionButton,
             };
 
         }
@@ -83,11 +93,17 @@ namespace Marche
             foreach (var component in _gameComponant)
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+
         }
 
         private void PlayButton_Click(object sender, System.EventArgs e)
         {
             _gameManager._screenManager.LoadScreen(new Paysage(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        
+        private void OptionButton_Click(object sender, System.EventArgs e)
+        {
+            _gameManager._screenManager.LoadScreen(new Options(_gameManager));
         }
 
         private void QuitButton_Click(object sender, System.EventArgs e)
