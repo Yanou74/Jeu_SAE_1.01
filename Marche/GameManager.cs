@@ -12,7 +12,7 @@ namespace Marche
 {
     public class GameManager : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private Pause _pause;
         private bool _singleClick;
         public SpriteBatch SpriteBatch { get; set; }
@@ -39,6 +39,7 @@ namespace Marche
             // Position par Défaut
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
             _goToPos = new Vector2(544, 2944);
             _singleClick = true;
