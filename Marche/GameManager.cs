@@ -19,6 +19,7 @@ namespace Marche
         public readonly ScreenManager _screenManager;
 
 
+
         // Position a mettre
         public Vector2 _goToPos;
         public GameManager()
@@ -60,10 +61,10 @@ namespace Marche
                 Exit();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                _pause.IsPaused();
-            }
+           /* if (Keyboard.GetState().IsKeyDown(Keys.F11))
+             {
+                ToggleFS();
+            } */
                 
 
 
@@ -79,22 +80,20 @@ namespace Marche
 
             base.Draw(gameTime);
         }
-        private void LoadMarche()
-        {
-            _screenManager.LoadScreen(new Marche(this));
-        }
+
         private void LoadPaysage()
         {
-            _screenManager.LoadScreen(new Paysage(this));
-        }
-        private void LoadHousePlayer()
-        {
-            _screenManager.LoadScreen(new House(this));
+            _screenManager.LoadScreen(new MainMenu(this));
         }
 
-        private void SpeedCheat()
-        {
-
+        private void ToggleFS()
+        {     
+            if (_graphics.IsFullScreen)
+                _graphics.IsFullScreen = false;
+            else
+                _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+            
         }
     }
 }

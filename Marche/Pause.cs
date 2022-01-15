@@ -15,11 +15,6 @@ namespace Marche
                 _pauseState =! _pauseState;
 
                 Console.WriteLine("Pause!");
-                while (true)
-                {
-                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                        Exit();
-                }
             } else
             {
                 _pauseState = !_pauseState;
