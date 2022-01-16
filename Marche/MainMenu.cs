@@ -11,6 +11,7 @@ namespace Marche
 {
     class MainMenu : GameScreen
     {
+        
         private GameManager _gameManager;
         private SpriteBatch spriteBatch;
         private Texture2D _background;

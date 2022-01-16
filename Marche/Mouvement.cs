@@ -24,7 +24,6 @@ namespace Marche
                 if (!IsCollision( tx, ty, _tiledMap, _layersName) && posPerso.X > 0 + _mc.TextureRegion.Width / 2)
                     posPerso.X -= walkSpeed;
 
-
             }
             else if (keyboardState.IsKeyDown(Keys.Right))
             {
@@ -33,6 +32,8 @@ namespace Marche
                 animation = "walkEast";
                 if (!IsCollision(tx, ty, _tiledMap, _layersName) && posPerso.X < _tiledMap.Width * largeur + _mc.TextureRegion.Width / 2)
                     posPerso.X += walkSpeed;
+                Console.WriteLine(new Vector2(tx, ty));
+                Console.WriteLine(posPerso);
             }
             else if (keyboardState.IsKeyDown(Keys.Up))
             {
@@ -56,6 +57,12 @@ namespace Marche
                 animation = "idle";
             }
     }
+
+
+        public void FollowCat(ref Vector2 catPos, Vector2 mc_Pos, string direction)
+        {
+          // if(catPos)
+        }
 
         public bool IsCollision(ushort x, ushort y, TiledMap _tiledMap, params string[] _layersName)
         {

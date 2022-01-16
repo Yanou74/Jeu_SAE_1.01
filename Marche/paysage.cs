@@ -18,8 +18,10 @@ namespace Marche
         private PositionSwitchScenecs _pss;
         private GameManager _gameManager;
         private SpriteBatch _spriteBatch;
-        private Vector2 _mcPosition;
+        private Vector2 _mcPosition;        
         private AnimatedSprite _mc;
+
+
         private string animation;
         private int _vitessePerso;
         private Mouvement mouvement;
@@ -50,9 +52,9 @@ namespace Marche
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
+            SpriteSheet spriteSheetCat = Content.Load<SpriteSheet>("Sprites/cat.sf", new JsonContentLoader());
             _tiledMap = Content.Load<TiledMap>("paysage/map1");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
@@ -72,7 +74,6 @@ namespace Marche
             CheckTPPoints();
             _mc.Play(animation);
             _mc.Update(deltaSeconds);
-
             mouseState = Mouse.GetState();
             
 
@@ -85,7 +86,7 @@ namespace Marche
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)1.5, (float)1.5));
+            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2(1.5f, 1.5f));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
             _tiledMapRenderer.Draw(15, _camera.GetViewMatrix());

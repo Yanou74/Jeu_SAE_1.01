@@ -10,9 +10,7 @@ using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
-
 using System;
-
 namespace Marche
 {
     class Marche : GameScreen
@@ -25,12 +23,15 @@ namespace Marche
         private Vector2 _mcPosition;
         private AnimatedSprite _mc;
 
+        private Vector2 _catPosition;
+        private AnimatedSprite _cat;
+
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
 
         private string animation;
         private int _vitessePerso;
-
+        private bool pausetsgt = false;
         private OrthographicCamera _camera;
 
         public const int LARGEUR_MAP = 32;
@@ -49,6 +50,7 @@ namespace Marche
             // TODO: Add your initialization logic here
 
             _mcPosition = _gameManager._goToPos;
+            _catPosition = new Vector2(20, 20);
             animation = "idle";
             _vitessePerso = 100;
             
@@ -66,7 +68,9 @@ namespace Marche
 
             // TODO: use this.Content to load your game content here
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
+            SpriteSheet spriteCat = Content.Load<SpriteSheet>("Sprites/cat.sf", new JsonContentLoader());
             _mc = new AnimatedSprite(spriteSheet);
+            _cat = new AnimatedSprite(spriteCat);
             _tiledMap = Content.Load<TiledMap>("marche");
             tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("Tp_Points");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
@@ -74,18 +78,33 @@ namespace Marche
 
         public override void Update(GameTime gameTime)
         {
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                pausetsgt = true;
+            }
+
             // TODO: Add your update logic here
-            _tiledMapRenderer.Update(gameTime);
-            float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float walkSpeed = deltaSeconds * _vitessePerso;
+            if(pausetsgt){
+                if (Keyboard.GetState().IsKeyDown(Keys.E))
+                {
+                    pausetsgt = false;
+                }
+            }
+            else
+            {
+                _tiledMapRenderer.Update(gameTime);
+                float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                float walkSpeed = deltaSeconds * _vitessePerso;
+                mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, HAUTEUR_MAP, LARGEUR_MAP, _mc, "Obstacle");
+                CheckTPPoints();
+                _camera.LookAt(_mcPosition);
+                _mc.Play(animation);
+                _cat.Play(animation);
+                _mc.Update(deltaSeconds);
+                _cat.Update(deltaSeconds);
+            }
 
-            mouvement.Move(ref _mcPosition, ref animation, _tiledMap, walkSpeed, HAUTEUR_MAP, LARGEUR_MAP, _mc, "Obstacle");
-            CheckTPPoints();
-            _camera.LookAt(_mcPosition);
-            _mc.Play(animation);
-            _mc.Update(deltaSeconds);
-
-            
             
             
         }
@@ -98,6 +117,7 @@ namespace Marche
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)2, (float)2));
+            _spriteBatch.Draw(_cat, new Vector2(GraphicsDevice.Viewport.Width / 2 + 50, GraphicsDevice.Viewport.Height / 2 + 20), 0, new Vector2((float)2, (float)2));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(12, _camera.GetViewMatrix());
 
