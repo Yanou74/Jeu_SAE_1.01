@@ -43,7 +43,6 @@ namespace Marche
             _graphics.ApplyChanges();
             _goToPos = new Vector2(544, 2944);
             _singleClick = true;
-             _pause = new Pause();
             base.Initialize();
 
         }

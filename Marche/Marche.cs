@@ -29,17 +29,18 @@ namespace Marche
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
 
+        private Pause _pause;
         private string animation;
         private int _vitessePerso;
-        private bool pausetsgt = false;
         private OrthographicCamera _camera;
 
-        private Texture2D _overlay;
+        private Texture2D _pauseBackground;
 
         public const int LARGEUR_MAP = 32;
         public const int HAUTEUR_MAP = 32;
 
         private TiledMapTileLayer tpPoints;
+        private Button _pauseButton;
 
         public Marche(GameManager game) : base(game)
         {
@@ -54,20 +55,20 @@ namespace Marche
             _mcPosition = _gameManager._goToPos;
             _catPosition = new Vector2(20, 20);
             animation = "idle";
-            _vitessePerso = 100;
-            
+            _vitessePerso = 100;            
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
             var viewportadapter = new BoxingViewportAdapter(_gameManager.Window, GraphicsDevice, 500, 400);
             _camera = new OrthographicCamera(viewportadapter);
             _pss = new PositionSwitchScenecs();
             mouvement = new Mouvement();
+            _pause = new Pause();
 
         }
 
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _overlay = Content.Load<Texture2D>("UI/OptionOverlay");
+            _pauseBackground = Content.Load<Texture2D>("UI/pauseBackground");
             // TODO: use this.Content to load your game content here
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
             SpriteSheet spriteCat = Content.Load<SpriteSheet>("Sprites/cat.sf", new JsonContentLoader());
@@ -76,27 +77,21 @@ namespace Marche
             _tiledMap = Content.Load<TiledMap>("marche");
             tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("Tp_Points");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+
+            // Bouton Pause
+            _pauseButton = new Button(Content.Load<Texture2D>("UI/pauseButton"), Content.Load<SpriteFont>("Fonts/defaultFont"))
+            {
+                Position = new Vector2(50, 50),
+                Text = "",
+            };
+            _pauseButton.Click += PauseButton_Click;
         }
 
         public override void Update(GameTime gameTime)
-        {
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                pausetsgt = true;
-               
-            }
-
+        {          
             // TODO: Add your update logic here
-            if(pausetsgt){
-                if (Keyboard.GetState().IsKeyDown(Keys.E))
-                {
-                    pausetsgt = false;
-
-                }
-                _spriteBatch.Begin();
-                _spriteBatch.Draw(_overlay, new Vector2(340, 220), Color.White);
-                _spriteBatch.End();
+            if(_pause._isPaused)
+            {
 
             }
             else
@@ -112,6 +107,7 @@ namespace Marche
                 _mc.Update(deltaSeconds);
                 _cat.Update(deltaSeconds);
             }
+            _pauseButton.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -125,14 +121,16 @@ namespace Marche
             _spriteBatch.Draw(_cat, new Vector2(GraphicsDevice.Viewport.Width / 2 + 50, GraphicsDevice.Viewport.Height / 2 + 20), 0, new Vector2((float)2, (float)2));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(12, _camera.GetViewMatrix());
-            if (pausetsgt)
+            if (_pause._isPaused)
             {
                 _spriteBatch.Begin();
-                _spriteBatch.Draw(_overlay, new Vector2(340, 220), Color.White);
+                _spriteBatch.Draw(_pauseBackground, Vector2.Zero, Color.White);
+                _pauseButton.Draw(gameTime, _spriteBatch);
                 _spriteBatch.End();
-
             }
-
+            _spriteBatch.Begin();
+            _pauseButton.Draw(gameTime, _spriteBatch);
+            _spriteBatch.End();
         }
 
         public void CheckTPPoints()
@@ -147,6 +145,18 @@ namespace Marche
                 
             }
                     
+        }
+
+
+
+        // Boutons
+
+        private void PauseButton_Click(object sender, System.EventArgs e)
+        {
+            if(_pause._isPaused)
+                _pause._isPaused = false;
+            else
+                _pause._isPaused = true;
         }
 
     }
