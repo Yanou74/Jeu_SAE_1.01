@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended;
@@ -27,6 +28,7 @@ namespace Marche
 
         private Button _returnButton;
         private Button _fullscreenButton;
+        private Button _soundButton;
         private SpriteFont _textFS;
 
         public Options(GameManager game) : base(game)
@@ -60,10 +62,17 @@ namespace Marche
             };
             _fullscreenButton.Click += FullScreen_Click;
 
+            _soundButton = new Button(_checkBox, Content.Load<SpriteFont>("Fonts/defaultFont"))
+            {
+                Position = new Vector2(700, 300),
+            };
+            _soundButton.Click += SoundButton_Click;
+
             _gameComponant = new List<Componant>()
             {
                 _returnButton,
                 _fullscreenButton,
+                _soundButton,
             };
 
             _textFS = Content.Load<SpriteFont>("Fonts/defaultFont");
@@ -86,6 +95,11 @@ namespace Marche
             {
                 _fullscreenButton.Text = "";
             }
+
+            if (SoundEffect.MasterVolume == 1.0f)
+                _soundButton.Text = "X";
+            else
+                _soundButton.Text = "";
         }
 
         public override void Draw(GameTime gameTime)
@@ -93,6 +107,7 @@ namespace Marche
             spriteBatch.Begin();
             spriteBatch.Draw(_overlay, new Vector2(340, 220), Color.White);
             spriteBatch.DrawString(_textFS, "FullScreen :", new Vector2(400, 410), new Color(148, 140, 99));
+            spriteBatch.DrawString(_textFS, "Son :", new Vector2(400, 310), new Color(148, 140, 99));
             foreach (var component in _gameComponant)
                 component.Draw(gameTime, spriteBatch);
             spriteBatch.End();
@@ -113,6 +128,14 @@ namespace Marche
                     _graphics.IsFullScreen = true;
                 }
             _graphics.ApplyChanges();
+        }
+
+        private void SoundButton_Click(object sender, System.EventArgs e)
+        {
+            if (SoundEffect.MasterVolume == 0.0f)
+                SoundEffect.MasterVolume = 1.0f;
+            else
+                SoundEffect.MasterVolume = 0.0f;
         }
     }
 }

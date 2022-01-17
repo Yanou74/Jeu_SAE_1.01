@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
@@ -15,6 +16,8 @@ namespace Marche
         public GraphicsDeviceManager _graphics;
         private Pause _pause;
         private bool _singleClick;
+        private Sound _sfx;
+        private bool alreadyplay = false;
         public SpriteBatch SpriteBatch { get; set; }
         public readonly ScreenManager _screenManager;
 
@@ -28,6 +31,7 @@ namespace Marche
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _screenManager = new ScreenManager();
+            _sfx = new Sound();
             Components.Add(_screenManager);
         }
 
@@ -43,6 +47,7 @@ namespace Marche
             _graphics.ApplyChanges();
             _goToPos = new Vector2(544, 2944);
             _singleClick = true;
+            
             base.Initialize();
 
         }
@@ -52,7 +57,12 @@ namespace Marche
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-           
+            // Audio
+
+            //Ville1
+            _sfx.soundEffects.Add(Content.Load<SoundEffect>("SFX/Harbor"));
+            //Ferme
+           // _sfx.soundEffects.Add(Content.Load<SoundEffect>("nature sketch"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,14 +70,22 @@ namespace Marche
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                if (SoundEffect.MasterVolume == 0.0f)
+                    SoundEffect.MasterVolume = 1.0f;
+                else
+                    SoundEffect.MasterVolume = 0.0f;
+            }
 
-           /* if (Keyboard.GetState().IsKeyDown(Keys.F11))
-             {
-                ToggleFS();
-            } */
+            if(alreadyplay == false)
+            {
+                var instance = _sfx.soundEffects[0].CreateInstance();
+                instance.IsLooped = true;
+                instance.Play();
+                alreadyplay = true;
+            }
                 
-
-
             // TODO: Add your update logic here
             base.Update(gameTime);
         }

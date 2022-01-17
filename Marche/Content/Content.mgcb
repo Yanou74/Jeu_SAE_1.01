@@ -208,6 +208,12 @@
 /processorParam:TextureFormat=Color
 /build:paysage/terrain_atlas.png
 
+#begin SFX/harbor.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/harbor.wav
+
 #begin Sprites/cat.png
 /importer:TextureImporter
 /processor:TextureProcessor
