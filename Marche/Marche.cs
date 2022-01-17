@@ -10,7 +10,7 @@ using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
-using System;
+using System.Collections.Generic;
 namespace Marche
 {
     class Marche : GameScreen
@@ -41,6 +41,10 @@ namespace Marche
 
         private TiledMapTileLayer tpPoints;
         private Button _pauseButton;
+        private Button _resumeButton;
+        private Button _quitButton;
+
+        private List<Componant> _gameComponant;
 
         public Marche(GameManager game) : base(game)
         {
@@ -85,6 +89,26 @@ namespace Marche
                 Text = "",
             };
             _pauseButton.Click += PauseButton_Click;
+            _resumeButton = new Button(Content.Load<Texture2D>("UI/Button"), Content.Load<SpriteFont>("Fonts/defaultFont"))
+            {
+                Position = new Vector2(390, 330),
+                Text = "Reprendre",
+            };
+            _resumeButton.Click += PlayButton_Click;
+
+            // Bouton QUitter
+            _quitButton = new Button(Content.Load<Texture2D>("UI/Button"), Content.Load<SpriteFont>("Fonts/defaultFont"))
+            {
+                Position = new Vector2(390, 570),
+                Text = "Quitter",
+            };
+            _quitButton.Click += QuitButton_Click;
+
+            _gameComponant = new List<Componant>()
+            {
+                _resumeButton,
+                _quitButton,
+            };
         }
 
         public override void Update(GameTime gameTime)
@@ -92,7 +116,8 @@ namespace Marche
             // TODO: Add your update logic here
             if(_pause._isPaused)
             {
-
+                foreach (var component in _gameComponant)
+                    component.Update(gameTime);
             }
             else
             {
@@ -126,6 +151,8 @@ namespace Marche
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(_pauseBackground, Vector2.Zero, Color.White);
                 _pauseButton.Draw(gameTime, _spriteBatch);
+                foreach (var component in _gameComponant)
+                    component.Draw(gameTime, _spriteBatch);
                 _spriteBatch.End();
             }
             _spriteBatch.Begin();
@@ -157,6 +184,16 @@ namespace Marche
                 _pause._isPaused = false;
             else
                 _pause._isPaused = true;
+        }
+
+        private void PlayButton_Click(object sender, System.EventArgs e)
+        {
+            _pause._isPaused = false;
+        }
+
+        private void QuitButton_Click(object sender, System.EventArgs e)
+        {
+            _gameManager.Exit();
         }
 
     }

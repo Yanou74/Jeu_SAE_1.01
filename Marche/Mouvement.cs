@@ -32,8 +32,6 @@ namespace Marche
                 animation = "walkEast";
                 if (!IsCollision(tx, ty, _tiledMap, _layersName) && posPerso.X < _tiledMap.Width * largeur + _mc.TextureRegion.Width / 2)
                     posPerso.X += walkSpeed;
-                Console.WriteLine(new Vector2(tx, ty));
-                Console.WriteLine(posPerso);
             }
             else if (keyboardState.IsKeyDown(Keys.Up))
             {
