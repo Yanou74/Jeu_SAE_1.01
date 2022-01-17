@@ -12,11 +12,12 @@ namespace Marche
 {
     public class GameManager : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private Pause _pause;
         private bool _singleClick;
         public SpriteBatch SpriteBatch { get; set; }
         public readonly ScreenManager _screenManager;
+
 
 
         // Position a mettre
@@ -38,10 +39,10 @@ namespace Marche
             // Position par Défaut
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
             _goToPos = new Vector2(544, 2944);
             _singleClick = true;
-             _pause = new Pause();
             base.Initialize();
 
         }
@@ -60,10 +61,10 @@ namespace Marche
                 Exit();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                _pause.IsPaused();
-            }
+           /* if (Keyboard.GetState().IsKeyDown(Keys.F11))
+             {
+                ToggleFS();
+            } */
                 
 
 
@@ -73,28 +74,26 @@ namespace Marche
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
-        private void LoadMarche()
-        {
-            _screenManager.LoadScreen(new Marche(this));
-        }
+
         private void LoadPaysage()
         {
-            _screenManager.LoadScreen(new Paysage(this));
-        }
-        private void LoadHousePlayer()
-        {
-            _screenManager.LoadScreen(new House(this));
+            _screenManager.LoadScreen(new MainMenu(this));
         }
 
-        private void SpeedCheat()
-        {
-
+        private void ToggleFS()
+        {     
+            if (_graphics.IsFullScreen)
+                _graphics.IsFullScreen = false;
+            else
+                _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+            
         }
     }
 }
