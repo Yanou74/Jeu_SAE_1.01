@@ -164,12 +164,12 @@ namespace Marche
             ushort tx = (ushort)(_mcPosition.X / _tiledMap.TileWidth);
             ushort ty = (ushort)(_mcPosition.Y / _tiledMap.TileHeight + 1);
             
-            if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3401)
+            if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3145)
             {
                 _gameManager._goToPos = _pss.SwitchScene(4);
                 _gameManager._screenManager.LoadScreen(new Marche(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));
                 
-            } else if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3402)
+            } else if (_tpPoints.GetTile(tx, ty).GlobalIdentifier == 3146)
             {
                 _gameManager._goToPos = _pss.SwitchScene(5);
                 _gameManager._screenManager.LoadScreen(new House(_gameManager), new FadeTransition(GraphicsDevice, Color.Black));

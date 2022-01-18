@@ -55,7 +55,7 @@ namespace Marche
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
-            _goToPos = new Vector2(544, 2944);
+            _goToPos = new Vector2(512, 928);
             _goldCount = 0;
 
 

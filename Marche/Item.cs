@@ -11,6 +11,7 @@ using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using System;
+using System.Collections.Generic;
 
 namespace Marche
 {
@@ -80,6 +81,23 @@ namespace Marche
             {
                 this.texture = value;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Item item &&
+                   this.id == item.id &&
+                   EqualityComparer<Texture>.Default.Equals(this.texture, item.texture);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.id, this.level, this.etat, this.texture);
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
