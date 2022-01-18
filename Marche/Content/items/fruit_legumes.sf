@@ -1,0 +1,60 @@
+{
+  "textureAtlas": {
+    "texture": "..\\..\\..\\..\\..\\..\\..\\Sae 1.01\\1_01\\crops.png",
+    "regionWidth": 32,
+    "regionHeight": 32
+  },
+  "cycles": {
+    "patates_item": {
+      "frames": [0]
+    },
+    "carottes_item": {
+      "frames": [5]
+    },
+    "navet_item": {
+      "frames": [9]
+    },
+    "oignon_item": {
+      "frames": [13]
+    },
+    "poivrons_item": {
+      "frames": [19]
+    },
+    "pastèque_item": {
+      "frames": [23]
+    },
+    "citrouille_item": {
+      "frames": [27]
+    },
+    "mais_item": {
+      "frames": [31]
+    },
+    "salade_item": {
+      "frames": [323]
+    },
+    "poireaux_item": {
+      "frames": [334]
+    },
+    "aubergine_item": {
+      "frames": [336]
+    },
+    "fraise_item": {
+      "frames": [340]
+    },
+    "mure_item": {
+      "frames": [341]
+    },
+    "framboise_item": {
+      "frames": [342]
+    },
+    "tomate_item": {
+      "frames": [347]
+    },
+    "haricots_item": {
+      "frames": [349]
+    },
+    "raisin_item": {
+      "frames": [344]
+    }
+  }
+}

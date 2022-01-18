@@ -20,14 +20,14 @@ namespace Marche
         private string id;
         private int level;
         private int etat;
-        private Texture texture;
+        private AnimatedSprite animatedSprite;
 
-        public Item(string id, int level, int etat, Texture texture)
+        public Item(string id, int level, int etat, AnimatedSprite animatedSprite)
         {
             this.id = id;
             this.level = level;
             this.etat = etat;
-            this.texture = texture;
+            this.animatedSprite = animatedSprite;
         }
 
         public string Id
@@ -70,29 +70,28 @@ namespace Marche
             }
         }
 
-        public Texture Texture
+        public AnimatedSprite AnimatedSprite
         {
             get
             {
-                return this.texture;
+                return this.animatedSprite;
             }
 
             set
             {
-                this.texture = value;
+                this.animatedSprite = value;
             }
         }
 
         public override bool Equals(object obj)
         {
             return obj is Item item &&
-                   this.id == item.id &&
-                   EqualityComparer<Texture>.Default.Equals(this.texture, item.texture);
+                   this.id == item.id;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.id, this.level, this.etat, this.texture);
+            return HashCode.Combine(this.id, this.level, this.etat, this.animatedSprite);
         }
 
         public override string ToString()
