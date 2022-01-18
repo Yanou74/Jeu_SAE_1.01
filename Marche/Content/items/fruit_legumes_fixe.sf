@@ -1,0 +1,21 @@
+{
+  "textureAtlas": {
+    "texture": "..\\..\\..\\..\\..\\..\\..\\Sae 1.01\\1_01\\crops.png",
+    "regionWidth": 32,
+    "regionHeight": 32
+  },
+  "cycles": {
+    "patates_item": {
+      "frames": [0]
+    },
+    "sol_recolt": {
+      "frames": [291]
+    },
+    "carottes_item": {
+      "frames": [5]
+    },
+    "navet_item": {
+      "frames": []
+    }
+  }
+}

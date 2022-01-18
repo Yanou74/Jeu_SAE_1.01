@@ -1,0 +1,42 @@
+{
+  "textureAtlas": {
+    "texture": "..\\..\\..\\..\\..\\..\\..\\Sae 1.01\\1_01\\crops - Copie.png",
+    "regionWidth": 32,
+    "regionHeight": 64
+  },
+  "cycles": {
+    "patates": {
+      "frames": [0,32,64,96]
+    },
+    "carottes": {
+      "frames": [5,37,69,101]
+    },
+    "navets": {
+      "frames": [9,41,73,105]
+    },
+    "oignon": {
+      "frames": [13,45,77,109]
+    },
+    "poivrons": {
+      "frames": [19,51,83,115]
+    },
+    "pastèques": {
+      "frames": [23,55,87,119]
+    },
+    "citrouille": {
+      "frames": [27,59,91,123]
+    },
+    "mais": {
+      "frames": [31,63,95,127]
+    },
+    "salades": {
+      "frames": [166,198,230,262]
+    },
+    "poireaux": {
+      "frames": [174,206,238,270]
+    },
+    "aubergine": {
+      "frames": [176,208,240,272]
+    }
+  }
+}

@@ -36,6 +36,7 @@ namespace Marche
         private Button _pauseButton;
         private Button _resumeButton;
         private Button _quitButton;
+        private ItemList itemList;
 
         private List<Componant> _gameComponant;
 
@@ -56,6 +57,7 @@ namespace Marche
             _pss = new PositionSwitchScenecs();
             mouvement = new Mouvement();
             _pause = new Pause();
+            itemList = new ItemList(_gameManager);
         }
 
         public override void LoadContent()
@@ -69,6 +71,7 @@ namespace Marche
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
             _mc = new AnimatedSprite(spriteSheet);
+            itemList.LoadContent();
 
             // Bouton Pause
             _pauseButton = new Button(Content.Load<Texture2D>("UI/pauseButton"), Content.Load<SpriteFont>("Fonts/defaultFont"))
@@ -119,6 +122,7 @@ namespace Marche
                 _mc.Play(animation);
                 _mc.Update(deltaSeconds);
                 mouseState = Mouse.GetState();
+                itemList.Update(gameTime);
             }
 
             _pauseButton.Update(gameTime);
@@ -138,6 +142,7 @@ namespace Marche
             _spriteBatch.End();
             _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
             _tiledMapRenderer.Draw(15, _camera.GetViewMatrix());
+            itemList.Draw(gameTime);
             if (_pause._isPaused)
             {
                 _spriteBatch.Begin();
