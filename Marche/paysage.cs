@@ -32,7 +32,8 @@ namespace Marche
         private MouseState mouseState;
 
         private Texture2D _pauseBackground;
-
+        private Texture2D _goldCoin;
+        private SpriteFont _textGold;
         private Button _pauseButton;
         private Button _resumeButton;
         private Button _quitButton;
@@ -63,12 +64,14 @@ namespace Marche
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             _pauseBackground = Content.Load<Texture2D>("UI/pauseBackground");
+            _goldCoin = Content.Load<Texture2D>("UI/Gold");
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("mc.sf", new JsonContentLoader());
             SpriteSheet spriteSheetCat = Content.Load<SpriteSheet>("Sprites/cat.sf", new JsonContentLoader());
             _tiledMap = Content.Load<TiledMap>("paysage/map1");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
             _mc = new AnimatedSprite(spriteSheet);
+            _textGold = Content.Load<SpriteFont>("Fonts/defaultFont");
 
             // Bouton Pause
             _pauseButton = new Button(Content.Load<Texture2D>("UI/pauseButton"), Content.Load<SpriteFont>("Fonts/defaultFont"))
@@ -129,7 +132,7 @@ namespace Marche
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(new Color(47,129,54));
 
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
@@ -149,6 +152,9 @@ namespace Marche
             }
             _spriteBatch.Begin();
             _pauseButton.Draw(gameTime, _spriteBatch);
+            _spriteBatch.Draw(_goldCoin, new Vector2(1200, 50), Color.White);
+            _spriteBatch.DrawString(_textGold, _gameManager._goldCount.ToString(), new Vector2(1100, 70), Color.LightGoldenrodYellow);
+            _gameManager._dialogBox.Draw(_spriteBatch);
             _spriteBatch.End();
         }
 
