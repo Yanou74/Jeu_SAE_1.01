@@ -31,7 +31,7 @@ namespace Marche
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("items/fruit_legumes.sf", new JsonContentLoader());
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("items/fruit_legumes_fixe.sf", new JsonContentLoader());
             _fruit_legumes = new AnimatedSprite(spriteSheet);
 
         }
