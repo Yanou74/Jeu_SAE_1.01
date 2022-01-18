@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/defaultFont.spritefont
 
+#begin Fonts/dialogFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/dialogFont.spritefont
+
 #begin HousePlayer/Atlas/base_out_atlas.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -285,6 +292,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/checkbox/UnCheck.png
+
+#begin UI/Gold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Gold.png
 
 #begin UI/OptionOverlay.png
 /importer:TextureImporter
