@@ -21,6 +21,9 @@ namespace Marche
         private Vector2 _mcPosition;        
         private AnimatedSprite _mc;
 
+        private AnimatedSprite _cat;
+        private Vector2 _catPosition;
+
         private Pause _pause;
         private string animation;
         private int _vitessePerso;
@@ -49,6 +52,7 @@ namespace Marche
         {
             // TODO: Add your initialization logic here
             _mcPosition = _gameManager._goToPos;
+            _catPosition = new Vector2(20, 20);
             animation = "idle";
             _vitessePerso = 300;
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
@@ -71,6 +75,7 @@ namespace Marche
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _tpPoints = _tiledMap.GetLayer<TiledMapTileLayer>("tp_points");
             _mc = new AnimatedSprite(spriteSheet);
+            _cat = new AnimatedSprite(spriteSheetCat);
             _textGold = Content.Load<SpriteFont>("Fonts/defaultFont");
 
             // Bouton Pause
@@ -120,7 +125,9 @@ namespace Marche
                 _camera.LookAt(_mcPosition);
                 CheckTPPoints();
                 _mc.Play(animation);
+                _cat.Play(animation);
                 _mc.Update(deltaSeconds);
+                _cat.Update(deltaSeconds);
                 mouseState = Mouse.GetState();
             }
 
@@ -138,6 +145,7 @@ namespace Marche
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
             _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2(1.5f, 1.5f));
+            _spriteBatch.Draw(_cat, new Vector2(GraphicsDevice.Viewport.Width / 2 + 50, GraphicsDevice.Viewport.Height / 2 + 20), 0, new Vector2((float)2, (float)2));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(11, _camera.GetViewMatrix());
             _tiledMapRenderer.Draw(15, _camera.GetViewMatrix());
