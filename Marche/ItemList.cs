@@ -40,16 +40,24 @@ namespace Marche
             AddItem(gameTime, _fruit_legumes, "carottes_item", "0101CARROTE", 2,1, itemList);
             AddItem(gameTime, _fruit_legumes, "patates_item", "0101PATATE", 1, 1, itemList);
             AddItem(gameTime, _fruit_legumes, "navet_item", "0101NAVET", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "oignon_item", "0101OIGNON", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "poivrons_item", "0101POIVRON", 1, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "pastèque_item", "0101PASTEQUE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "citrouille_item", "0101CITROUILLE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "mais_item", "0101MAIS", 1, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "salade_item", "0101SALADE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "poireaux_item", "0101POIREAUX", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "aubergine_item", "0101AUBERGINE", 1, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "mure_item", "0102MURE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "fraise_item", "0102FRAISE", 1, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "framboise_item", "0102FRAMBOISE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "tomate_item", "0101TOMATE", 2, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "haricots_item", "0101HARICOT", 1, 1, itemList);
+            AddItem(gameTime, _fruit_legumes, "raisin_item", "0102RAISIN", 2, 1, itemList);
 
         }
         public override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
-            foreach(Item item in itemList)
-         {
-             _spriteBatch.Draw(item.AnimatedSprite, new Vector2(50, 50), 0, new Vector2(2f, 2f));
-         }
-            _spriteBatch.End();
         }
 
 
