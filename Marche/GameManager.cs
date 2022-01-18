@@ -24,6 +24,7 @@ namespace Marche
 
         ///////////////////////////////////////
 
+        public Cat_IA _cia;
         public GraphicsDeviceManager _graphics;
         private Sound _sfx;
         private bool alreadyplay = false;
@@ -57,7 +58,7 @@ namespace Marche
             _graphics.ApplyChanges();
             _goToPos = new Vector2(512, 928);
             _goldCount = 0;
-
+            _cia = new Cat_IA();
 
             base.Initialize();
 
@@ -80,7 +81,7 @@ namespace Marche
                       "A l'EST, vous pourrez acceder au marche afin de vendre vos productions.\n" +
                       "Une derniere chose, nous avons mis un chat a votre disposission afin de vous aider au long de votre aventure...\n" +
                       "MiAOU MIAOU (Salut, je suis ton bras droit !)\n" +
-                      "Si vous etes bloque quelque part ou vous ne savez pas quoi faire, votre chat pourra alors vous conseiller sur les choix a faire tout au long de l'aventure. Pour appeler votre chat, appuyez sur la touche O." +
+                      "Si vous etes bloque quelque part ou vous ne savez pas quoi faire, votre chat pourra alors vous conseiller sur les choix a faire tout au long de l'aventure. Pour appeler votre chat, appuyez sur la touche Z." +
                       "Bonne cultivation !"
             };
 
@@ -114,11 +115,11 @@ namespace Marche
             _dialogBox.Update();
 
             // Debug key to show opening a new dialog box on demand
-            if (Program.Game.KeyState.IsKeyDown(Keys.O))
+            if (Program.Game.KeyState.IsKeyDown(Keys.Z))
             {
                 if (!_dialogBox.Active)
                 {
-                    _dialogBox = new DialogBox { Text = "New dialog box!" };
+                    _dialogBox = new DialogBox { Text = _cia.Request(_goldCount)};
                     _dialogBox.Initialize();
                 }
             }
@@ -143,19 +144,9 @@ namespace Marche
             _screenManager.LoadScreen(new MainMenu(this));
         }
 
-        private void ToggleFS()
-        {     
-            if (_graphics.IsFullScreen)
-                _graphics.IsFullScreen = false;
-            else
-                _graphics.IsFullScreen = true;
-            _graphics.ApplyChanges();
-            
-        }
-
         private void Cheats()
         {
-            if(_goldCount < 1000)
+            if(_goldCount < 9999)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.NumPad0))
                     _goldCount += 1;
