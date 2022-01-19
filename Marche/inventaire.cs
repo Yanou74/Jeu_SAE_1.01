@@ -19,6 +19,7 @@ namespace Marche
         private GameManager _gameManager;
         private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
+        private Texture2D _inventaire;
 
         public Inventaire(GameManager game) : base(game)
         {
@@ -32,6 +33,7 @@ namespace Marche
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _inventaire = Content.Load<Texture2D>("inventaire");
         }
         public override void Update(GameTime gameTime)
         {
@@ -39,6 +41,9 @@ namespace Marche
 
         public override void Draw(GameTime gameTime)
         {
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_inventaire, new Vector2(320, 550), Color.White);
+            _spriteBatch.End();
         }
     }
 }
