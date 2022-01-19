@@ -94,14 +94,6 @@ namespace Marche
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                if (SoundEffect.MasterVolume == 0.0f)
-                    SoundEffect.MasterVolume = 1.0f;
-                else
-                    SoundEffect.MasterVolume = 0.0f;
-            }
-
             Cheats();
             if(alreadyplay == false)
             {

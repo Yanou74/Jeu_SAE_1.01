@@ -143,7 +143,7 @@ namespace Marche
             // TODO: Add your drawing code here
             _tiledMapRenderer.Draw(_camera.GetViewMatrix());
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2((float)2, (float)2));
+            _spriteBatch.Draw(_mc, new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), 0, new Vector2(2, 2));
             _spriteBatch.Draw(_cat, new Vector2(GraphicsDevice.Viewport.Width / 2 + 50, GraphicsDevice.Viewport.Height / 2 + 20), 0, new Vector2((float)2, (float)2));
             _spriteBatch.End();
             _tiledMapRenderer.Draw(12, _camera.GetViewMatrix());
