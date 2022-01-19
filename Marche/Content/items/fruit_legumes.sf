@@ -1,0 +1,60 @@
+{
+  "textureAtlas": {
+    "texture": "crops - Copie.png",
+    "regionWidth": 32,
+    "regionHeight": 64
+  },
+  "cycles": {
+    "carotte": {
+      "frames": [5,37,69,101]
+    },
+    "patate": {
+      "frames": [0,32,64,96]
+    },
+    "navet": {
+      "frames": [9,41,73,105]
+    },
+    "oignon": {
+      "frames": [13,45,77,109]
+    },
+    "poivron": {
+      "frames": [19,51,83,115]
+    },
+    "pastèque": {
+      "frames": [23,55,87,119]
+    },
+    "citrouille": {
+      "frames": [27,59,91,123]
+    },
+    "mais": {
+      "frames": [31,63,95,127]
+    },
+    "salade": {
+      "frames": [166,198,230,262]
+    },
+    "poireaux": {
+      "frames": [174,206,238,270]
+    },
+    "aubergine": {
+      "frames": [176,208,240,272]
+    },
+    "fraise": {
+      "frames": [180,212,244,276]
+    },
+    "mure": {
+      "frames": [181,213,245,277]
+    },
+    "framboise": {
+      "frames": [182,214,246,278]
+    },
+    "tomate": {
+      "frames": [187,219,251,283]
+    },
+    "haricot": {
+      "frames": [189,221,253,285]
+    },
+    "raisin": {
+      "frames": [184,216,248,280,312]
+    }
+  }
+}
