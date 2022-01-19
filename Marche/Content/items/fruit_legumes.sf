@@ -1,60 +1,60 @@
 {
   "textureAtlas": {
-    "texture": "..\\..\\..\\..\\..\\..\\..\\Sae 1.01\\1_01\\crops.png",
+    "texture": "crops - Copie.png",
     "regionWidth": 32,
-    "regionHeight": 32
+    "regionHeight": 64
   },
   "cycles": {
-    "patates_item": {
-      "frames": [0]
+    "carotte": {
+      "frames": [5,37,69,101]
     },
-    "carottes_item": {
-      "frames": [5]
+    "patate": {
+      "frames": [0,32,64,96]
     },
-    "navet_item": {
-      "frames": [9]
+    "navet": {
+      "frames": [9,41,73,105]
     },
-    "oignon_item": {
-      "frames": [13]
+    "oignon": {
+      "frames": [13,45,77,109]
     },
-    "poivrons_item": {
-      "frames": [19]
+    "poivron": {
+      "frames": [19,51,83,115]
     },
-    "pastèque_item": {
-      "frames": [23]
+    "pastÃ¨que": {
+      "frames": [23,55,87,119]
     },
-    "citrouille_item": {
-      "frames": [27]
+    "citrouille": {
+      "frames": [27,59,91,123]
     },
-    "mais_item": {
-      "frames": [31]
+    "mais": {
+      "frames": [31,63,95,127]
     },
-    "salade_item": {
-      "frames": [323]
+    "salade": {
+      "frames": [166,198,230,262]
     },
-    "poireaux_item": {
-      "frames": [334]
+    "poireaux": {
+      "frames": [174,206,238,270]
     },
-    "aubergine_item": {
-      "frames": [336]
+    "aubergine": {
+      "frames": [176,208,240,272]
     },
-    "fraise_item": {
-      "frames": [340]
+    "fraise": {
+      "frames": [180,212,244,276]
     },
-    "mure_item": {
-      "frames": [341]
+    "mure": {
+      "frames": [181,213,245,277]
     },
-    "framboise_item": {
-      "frames": [342]
+    "framboise": {
+      "frames": [182,214,246,278]
     },
-    "tomate_item": {
-      "frames": [347]
+    "tomate": {
+      "frames": [187,219,251,283]
     },
-    "haricots_item": {
-      "frames": [349]
+    "haricot": {
+      "frames": [189,221,253,285]
     },
-    "raisin_item": {
-      "frames": [344]
+    "raisin": {
+      "frames": [184,216,248,280,312]
     }
   }
 }
