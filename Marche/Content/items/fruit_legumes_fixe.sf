@@ -1,6 +1,6 @@
 {
   "textureAtlas": {
-    "texture": "..\\..\\..\\..\\..\\..\\..\\Sae 1.01\\1_01\\crops.png",
+    "texture": "crops.png",
     "regionWidth": 32,
     "regionHeight": 32
   },
